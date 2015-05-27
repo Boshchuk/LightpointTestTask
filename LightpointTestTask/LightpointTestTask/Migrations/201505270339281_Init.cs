@@ -3,7 +3,7 @@ namespace LightpointTestTask.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initMigration : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,7 @@ namespace LightpointTestTask.Migrations
                 "dbo.Products",
                 c => new
                     {
-                        ProductId = c.Int(nullable: false),
+                        ProductId = c.Int(nullable: false, identity: true),
                         ProductName = c.String(),
                         Description = c.String(),
                         Store_StoreId = c.Int(),

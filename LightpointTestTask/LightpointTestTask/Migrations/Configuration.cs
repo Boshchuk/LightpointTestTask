@@ -23,8 +23,12 @@ namespace LightpointTestTask.Migrations
                 new Product {ProductName = "Product 4", Description = "Prodcut 4 Description", ProductId = 4},
             };
 
-            proudcts.ForEach(p => context.Products.Add(p));
-            context.SaveChanges();
+            if (!context.Products.Any())
+            {
+                proudcts.ForEach(p => context.Products.Add(p));
+                context.SaveChanges();
+            }
+            
 
             var stores = new List<Store>
             {
@@ -46,8 +50,12 @@ namespace LightpointTestTask.Migrations
                 },
             };
 
-            stores.ForEach(s => context.Stores.Add(s));
-            context.SaveChanges();
+
+            if (!context.Stores.Any())
+            {
+                stores.ForEach(s => context.Stores.Add(s));
+                context.SaveChanges();
+            }
         }
     }
 }
