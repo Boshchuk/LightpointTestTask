@@ -14,13 +14,5 @@ namespace LightpointTestTask.Controllers
 
             return View(stores);
         }
-
-        [HttpGet]
-        public ActionResult GetProducts(int id)
-        {
-            var products = unitOfWork.StoreRepository.GetByID(id).Products;
-
-            return Json(products, JsonRequestBehavior.AllowGet);
-        }
     }
 }

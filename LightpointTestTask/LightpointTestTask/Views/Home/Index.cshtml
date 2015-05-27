@@ -83,12 +83,9 @@
 
         $('#example').DataTable({
             "columns": [
-          
-          { "data": "ProductId" },
+            { "data": "ProductId" },
             { "data": "ProductName" },
-            { "data": "Description" }
-
-            ]
+            { "data": "Description" }]
         });
 
         $(".products").click(function (e) {
@@ -116,8 +113,19 @@
 
             var table = $('#example').DataTable();
             table.clear();
-            $.get(url, { id: id }, function (data) {
-                table.rows.add(data).draw();
+            //$.get(url, { id: id }, function (data) {
+              
+            //});
+
+            var uri = 'api/LightPoint';
+
+            $.getJSON(uri + '/' + id)
+             .done(function (data) {
+                 //console.log(data);
+                 table.rows.add(data).draw();
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                console.log(data);
             });
 
 
