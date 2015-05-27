@@ -11,12 +11,6 @@
 <div class="row">
 
     <h2>List of Stores: </h2>
-
-   
-
-
-    @*<p>Tool tip: click on row to see product list of this store </p>*@
-
     <table class="table table-bordered ">
         <tr>
             <th>
@@ -54,14 +48,9 @@
                 <td>
                     <a class="products" id="@item.StoreId" href="#">Products</a>
                 </td>
-
             </tr>
         }
-
     </table>
-
-   
-   
 </div>
 
 <div id="products-window" style="display:none;">
@@ -105,19 +94,13 @@
                 });
             }
             
-            window.data('kendoWindow').center().open();
+            window.data("kendoWindow").center().open();
             
-            var url = "/Home/GetProducts";
-       
-           
 
-            var table = $('#example').DataTable();
+            var table = $("#example").DataTable();
             table.clear();
-            //$.get(url, { id: id }, function (data) {
-              
-            //});
 
-            var uri = 'api/LightPoint';
+            var uri = "api/LightPoint";
 
             $.getJSON(uri + '/' + id)
              .done(function (data) {
