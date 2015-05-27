@@ -1,0 +1,126 @@
+﻿@model IEnumerable<LightpointTestTask.Models.Store>
+
+@{
+    ViewBag.Title = "List of Stores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <h1>Lightpoint Test</h1>
+</div>
+<div class="row">
+
+    <h2>List of Stores: </h2>
+
+   
+
+
+    @*<p>Tool tip: click on row to see product list of this store </p>*@
+
+    <table class="table table-bordered ">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="store-row">
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkHours)
+                </td>
+                <td>
+                    <a class="products" id="@item.StoreId" href="#">Products</a>
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+   
+   
+</div>
+
+<div id="products-window" style="display:none;">
+
+    <table class="table table-bordered" style="text-align:left;" id="example">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#example').DataTable({
+            "columns": [
+          
+          { "data": "ProductId" },
+            { "data": "ProductName" },
+            { "data": "Description" }
+
+            ]
+        });
+
+        $(".products").click(function (e) {
+            e.preventDefault();
+
+            var id = this.id;
+
+            var title = "products";
+
+            var window = $("#products-window");
+            if (!window.data("kendoWindow")) {
+                window.kendoWindow({
+                    modal: true,
+                    width: "800px",
+                    title: title,
+                    actions: ["Close"]
+                });
+            }
+            
+            window.data('kendoWindow').center().open();
+            
+            var url = "/Home/GetProducts";
+       
+           
+
+            var table = $('#example').DataTable();
+            table.clear();
+            $.get(url, { id: id }, function (data) {
+                table.rows.add(data).draw();
+            });
+
+
+        });
+    });
+</script>
